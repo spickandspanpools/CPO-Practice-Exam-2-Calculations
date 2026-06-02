@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced CPO Math Practice Exam</title>
+  <style>
+    body { background-color: transparent; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #333333; }
+    .cpo-quiz-container { background-color: #f9fbfd; border: 1px solid #e1e8ed; border-radius: 8px; padding: 25px; max-width: 680px; margin: 10px auto; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+    .quiz-header h3 { margin-top: 0; color: #0d2c54; font-size: 24px; margin-bottom: 6px; }
+    .quiz-header p { color: #606f7b; font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
+    .progress-bar-container { background-color: #e1e8ed; border-radius: 4px; height: 6px; width: 100%; margin-bottom: 25px; }
+    .progress-bar-fill { background-color: #0070f3; height: 100%; width: 10%; border-radius: 4px; transition: width 0.3s ease; }
+    .quiz-question-block { display: none; }
+    .quiz-question-block.active { display: block; }
+    .question-text { font-size: 16px; line-height: 1.5; font-weight: 600; margin-bottom: 16px; color: #0d2c54; }
+    .quiz-option { display: block; background: #ffffff; border: 1px solid #ccdad1; border-radius: 6px; padding: 12px 15px; margin-bottom: 10px; cursor: pointer; font-size: 14px; transition: all 0.2s ease; }
+    .quiz-option:hover { background: #f1f5f8; border-color: #a0aec0; }
+    .quiz-option input { margin-right: 12px; vertical-align: middle; }
+    .quiz-nav-container { display: flex; justify-content: space-between; margin-top: 25px; padding-top: 15px; border-top: 1px solid #e1e8ed; }
+    .quiz-btn { padding: 10px 20px; font-size: 14px; font-weight: 600; border-radius: 5px; cursor: pointer; transition: all 0.2s ease; border: none; }
+    .btn-secondary { background-color: #e1e8ed; color: #47525d; }
+    .btn-secondary:hover { background-color: #cbd5e0; }
+    .btn-primary { background-color: #0070f3; color: white; }
+    .btn-primary:hover { background-color: #0056b3; }
+    .quiz-feedback { margin-top: 15px; padding: 12px; border-radius: 6px; font-size: 14px; line-height: 1.5; display: none; }
+    .correct-style { background-color: #e6f4ea; color: #137333; border-left: 4px solid #137333; }
+    .incorrect-style { background-color: #fce8e6; color: #c5221f; border-left: 4px solid #c5221f; }
+    #quiz-results-screen { display: none; text-align: center; padding: 20px 0; }
+    #quiz-results-screen h4 { font-size: 22px; color: #0d2c54; margin-bottom: 10px; }
+    .score-badge { font-size: 48px; font-weight: 800; color: #0070f3; margin: 15px 0; }
+  </style>
+</head>
+<body>
+
+<div class="cpo-quiz-container">
+  <div class="quiz-header" id="quiz-header-region">
+    <h3>CPO Advanced Calculations Test</h3>
+    <p id="question-counter-text">Question 1 of 10</p>
+    <div class="progress-bar-container">
+      <div class="progress-bar-fill" id="quiz-progress-bar"></div>
+    </div>
+  </div>
+
+  <form id="cpo-exam-form">
+    <div class="quiz-question-block active" id="qblock-1">
+      <p class="question-text">1. A rectangular swimming pool measures 50 feet long by 20 feet wide. The depth slants uniformly from 3 feet in the shallow end to 5 feet in the deep end. What is the total volume of this pool in gallons?</p>
+      <label class="quiz-option"><input type="radio" name="q1" value="A" onchange="revealAnswer(1, 'C')"> A) 40,000 gallons</label>
+      <label class="quiz-option"><input type="radio" name="q1" value="B" onchange="revealAnswer(1, 'C')"> B) 37,500 gallons</label>
+      <label class="quiz-option"><input type="radio" name="q1" value="C" onchange="revealAnswer(1, 'C')"> C) 30,000 gallons</label>
+      <label class="quiz-option"><input type="radio" name="q1" value="D" onchange="revealAnswer(1, 'C')"> D) 22,500 gallons</label>
+      <div class="quiz-feedback" id="feedback-1"></div>
+    </div>
+
+    <div class="quiz-question-block" id="qblock-2">
+      <p class="question-text">2. A rectangular public swimming pool measures 60 feet long by 30 feet wide. Over a hot weekend, evaporation causes the water level to drop straight down by exactly 2 inches. How many total gallons of water did the pool lose?</p>
+      <label class="quiz-option"><input type="radio" name="q2" value="A" onchange="revealAnswer(2, 'C')"> A) 1,350 gallons</label>
+      <label class="quiz-option"><input type="radio" name="q2" value="B" onchange="revealAnswer(2, 'C')"> B) 27,000 gallons</label>
+      <label class="quiz-option"><input type="radio" name="q2" value="C" onchange="revealAnswer(2, 'C')"> C) 2,250 gallons</label>
+      <label class="quiz-option"><input type="radio" name="q2" value="D" onchange="revealAnswer(2, 'C')"> D) 18,000 gallons</label>
+      <div class="quiz-feedback" id="feedback-2"></div>
+    </div>
+
+    <div class="quiz-question-block" id="qblock-3">
+      <p class="question-text">3. Your pool volume is 20,000 gallons. Your current Total Alkalinity reading is 70 ppm, and your target is 100 ppm. How many pounds of Sodium Bicarbonate do you need to add?</p>
+      <label class="quiz-option"><input type="radio" name="q3" value="A" onchange="revealAnswer(3, 'D')"> A) 4.2 lbs</label>
+      <label class="quiz-option"><input type="radio" name="q3" value="B" onchange="revealAnswer(3, 'D')"> B) 5.6 lbs</label>
+      <label class="quiz-option"><input type="radio" name="q3" value="C" onchange="revealAnswer(3, 'D')"> C) 6.8 lbs</label>
+      <label class="quiz-option"><input type="radio" name="q3" value="D" onchange="revealAnswer(3, 'D')"> D) 8.4 lbs</label>
+      <div class="quiz-feedback" id="feedback-3"></div>
+    </div>
+
+    <div class="quiz-question-block" id="qblock-4">
+      <p class="question-text">4. A commercial pool has a total calculated volume of 72,000 gallons. State codes mandate a minimum 6-hour turnover rate for this facility type. What is the required design flow rate in Gallons Per Minute (GPM)?</p>
+      <label class="quiz-option"><input type="radio" name="q4" value="A" onchange="revealAnswer(4, 'B')"> A) 12,000 GPM</label>
+      <label class="quiz-option"><input type="radio" name="q4" value="B" onchange="revealAnswer(4, 'B')"> B) 200 GPM</label>
+      <label class="quiz-option"><input type="radio" name="q4" value="C" onchange="revealAnswer(4, 'B')"> C) 150 GPM</label>
+      <label class="quiz-option"><input type="radio" name="q4" value="D" onchange="revealAnswer(4, 'B')"> D) 120 GPM</label>
+      <div class="quiz-feedback" id="feedback-4"></div>
+    </div>
+
+    <div class="quiz-question-block" id="qblock-5">
+      <p class="question-text">5. You check the flow meter on a 45,000-gallon public pool and read an active flow rate of 125 Gallons Per Minute (GPM). What is the actual turnover rate of the pool in hours?</p>
+      <label class="quiz-option"><input type="radio" name="q5" value="A" onchange="revealAnswer(5, 'C')"> A) 4.5 hours</label>
+      <label class="quiz-option"><input type="radio" name="q5" value="B" onchange="revealAnswer(5, 'C')"> B) 5.2 hours</label>
+      <label class="quiz-option"><input type="radio" name="q5" value="C" onchange="revealAnswer(5, 'C')"> C) 6.0 hours</label>
+      <label class="quiz-option"><input type="radio" name="q5" value="D" onchange="revealAnswer(5, 'C')"> D) 7.5 hours</label>
+      <div class="quiz-feedback" id="feedback-5"></div>
+    </div>
+
+    <div class="quiz-question-block" id="qblock-6">
+      <p class="question-text">6. A pool system operates at a flow rate of 120 Gallons Per Minute (GPM). It utilizes high-rate sand filtration, which possesses a maximum design filtration rate of 15 GPM per square foot. What is the minimum required filter surface area in square feet?</p>
+      <label class="quiz-option"><input type="radio" name="q6" value="A" onchange="revealAnswer(6, 'B')"> A) 18.0 sq ft</label>
+      <label class="quiz-option"><input type="radio" name="q6" value="B" onchange="revealAnswer(6, 'B')"> B) 8.0 sq ft</label>
+      <label class="quiz-option"><input type="radio" name="q6" value="C" onchange="revealAnswer(6, 'B')"> C) 12.5 sq ft</label>
+      <label class="quiz-option"><input type="radio" name="q6" value="D" onchange="revealAnswer(6, 'B')"> D) 6.0 sq ft</label>
+      <div class="quiz-feedback" id="feedback-6"></div>
+    </div>
+
+    <div class="quiz-question-block" id="qblock-7">
+      <p class="question-text">7. A facility uses a cartridge system providing a total filter surface area of 300 square feet. The filter media rate is 0.375 GPM per square foot, what is the maximum allowable flow rate in GPM for this filter system?</p>
+      <label class="quiz-option"><input type="radio" name="q7" value="A" onchange="revealAnswer(7, 'A')"> A) 112.5 GPM</label>
+      <label class="quiz-option"><input type="radio" name="q7" value="B" onchange="revealAnswer(7, 'A')"> B) 150.0 GPM</label>
+      <label class="quiz-option"><input type="radio" name="q7" value="C" onchange="revealAnswer(7, 'A')"> C) 80.0 GPM</label>
+      <label class="quiz-option"><input type="radio" name="q7" value="D" onchange="revealAnswer(7, 'A')"> D) 225.0 GPM</label>
+      <div class="quiz-feedback" id="feedback-7"></div>
+    </div>
+
+    <div class="quiz-question-block" id="qblock-8">
+      <p class="question-text">8. A 50,000-gallon aquatic center pool has a Total Chlorine (TC) reading of 4.2 ppm and a Free Chlorine (FC) of 3.4 ppm. How many gallons of Sodium Hypochlorite (12%) must be added to reach exact breakpoint chlorination?</p>
+      <label class="quiz-option"><input type="radio" name="q8" value="A" onchange="revealAnswer(8, 'A')"> A) 1.92 gallons</label>
+      <label class="quiz-option"><input type="radio" name="q8" value="B" onchange="revealAnswer(8, 'A')"> B) 3.44 gallons</label>
+      <label class="quiz-option"><input type="radio" name="q8" value="C" onchange="revealAnswer(8, 'A')"> C) 0.85 gallons</label>
+      <label class="quiz-option"><input type="radio" name="q8" value="D" onchange="revealAnswer(8, 'A')"> D) 4.60 gallons</label>
+      <div class="quiz-feedback" id="feedback-8"></div>
+    </div>
+
+    <div class="quiz-question-block" id="qblock-9">
+      <p class="question-text">9. Calculate the Saturation Index (SI) for a commercial hot tub feature with the following readings: pH 7.6, Temp 102°F, Calcium Hardness 300 ppm, Total Alkalinity 150 ppm, and TDS 1200 ppm. What is the saturation index?</p>
+      <label class="quiz-option"><input type="radio" name="q9" value="A" onchange="revealAnswer(9, 'B')"> A) -0.1 (Balanced)</label>
+      <label class="quiz-option"><input type="radio" name="q9" value="B" onchange="revealAnswer(9, 'B')"> B) +0.6 (Scale-forming)</label>
+      <label class="quiz-option"><input type="radio" name="q9" value="C" onchange="revealAnswer(9, 'B')"> C) +0.2 (Balanced)</label>
+      <label class="quiz-option"><input type="radio" name="q9" value="D" onchange="revealAnswer(9, 'B')"> D) -0.4 (Corrosive)</label>
+      <div class="quiz-feedback" id="feedback-9"></div>
+    </div>
+
+    <div class="quiz-question-block" id="qblock-10">
+      <p class="question-text">10. A 60,000-gallon pool has a Total Chlorine reading of 2.3 ppm and a Free Chlorine reading of 1.5 ppm. Calculate how many pounds of Calcium Hypochlorite (67%) are needed to achieve breakpoint chlorination.</p>
+      <label class="quiz-option"><input type="radio" name="q10" value="B" onchange="revealAnswer(10, 'B')"> A) 2.450 lbs</label>
+      <label class="quiz-option"><input type="radio" name="q10" value="B" onchange="revealAnswer(10, 'B')"> B) 4.875 lbs</label>
+      <label class="quiz-option"><input type="radio" name="q10" value="B" onchange="revealAnswer(10, 'B')"> C) 6.000 lbs</label>
+      <label class="quiz-option"><input type="radio" name="q10" value="B" onchange="revealAnswer(10, 'B')"> D) 7.825 lbs</label>
+      <div class="quiz-feedback" id="feedback-10"></div>
+    </div>
+  </form>
+
+  <div id="quiz-results-screen">
+    <h4>Calculations Review Complete!</h4>
+    <p>Great job working through these specialized hydraulic and sizing questions.</p>
+    <div class="score-badge" id="score-text-placeholder">0 / 10</div>
+    <p id="score-commentary-text" style="color: #47525d; font-size: 15px; max-width: 500px; margin: 0 auto 20px; line-height: 1.5;"></p>
+    <button type="button" class="quiz-btn btn-primary" onclick="restartQuiz()">Retake Math Test</button>
+  </div>
+
+  <div class="quiz-nav-container" id="quiz-nav-controls">
+    <button type="button" class="quiz-btn btn-secondary" id="prev-btn" onclick="changeQuestion(-1)" disabled>Previous</button>
+    <button type="button" class="quiz-btn btn-primary" id="next-btn" onclick="changeQuestion(1)">Next Question</button>
+  </div>
+</div>
+
+<script>
+  let currentQuestion = 1;
+  const totalQuestions = 10;
+  let runningScore = 0;
+  const scoreTrackingArray = new Array(totalQuestions + 1).fill(0);
+
+  const solutionExplanations = {
+    1: "Average Depth = (3 + 5) ÷ 2 = 4 feet. Volume = 50ft (Length) x 20ft (Width) x 4ft (Avg Depth) x 7.5 (Gal multiplier) = 30,000 gallons.",
+    2: "Step 1: Calculate Surface Area = 60ft x 30ft = 1,800 sq ft. Step 2: Convert water loss in inches to feet = 2 inches ÷ 12 inches/ft = 0.1667 feet. Step 3: Find Cubic Feet lost = 1,800 sq ft x 0.1667 ft = 300 cubic feet. Step 4: Convert to gallons = 300 cu ft x 7.5 gallons/cu ft = 2,250 total gallons lost.",
+    3: "Desired change = 30 ppm (100 - 70). Pool Factor = 2 (20,000 / 10,000). Dosing unit factor = 3 (30 ppm / 10 ppm baseline increment). Formula: 2 (Pool Factor) x 3 (Increment Units) x 1.4 lbs = 8.4 lbs.",
+    4: "Formula: Flow Rate (GPM) = Pool Volume ÷ Turnover Rate (Hours) ÷ 60 minutes. Calculation: 72,000 ÷ 6 ÷ 60 = 200 GPM.",
+    5: "Formula: Turnover Rate (Hours) = Pool Volume ÷ Flow Rate (GPM) ÷ 60 minutes. Calculation: 45,000 ÷ 125 ÷ 60 = 6.0 hours.",
+    6: "Formula: Filter Area (Sq Ft) = Total Flow Rate (GPM) ÷ Filter Sizing Design Rate (GPM/Sq Ft). Calculation: 120 GPM ÷ 15 GPM/sq ft = 8.0 square feet.",
+    7: "Formula: Max Flow Rate (GPM) = Filter Area (Sq Ft) x Filter Media Rate (GPM/Sq Ft). Calculation: 300 sq ft x 0.375 GPM/sq ft = 112.5 GPM.",
+    8: "Step 1: CC = 4.2 TC - 3.4 FC = 0.8 ppm. Step 2: Breakpoint Target = 0.8 CC x 10 = 8.0 ppm. Step 3: Adjustment = 8.0 Target - 3.4 current FC = 4.6 ppm change. Step 4: Volume Pool Factor = 5 (50,000 / 10,000). Step 5: Ounce dose = 5 (Factor) x 4.6 (Change) x 10.7 oz (Baseline parameter for 12% Sodium Hypochlorite) = 246.1 total ounces. Step 6: Convert to gallons = 246.1 oz / 128 oz per gallon = 1.92 gallons.",
+    9: "Identify the reference factors from the handbook index: 102°F maps to a Temperature Factor (TF) of 0.9; 300 ppm Calcium Hardness provides a Hardness Factor (CF) of 2.1; 150 ppm Total Alkalinity establishes an Alkalinity Factor (AF) of 2.2; and a 1,200 ppm TDS creates a TDS Factor constant of 12.2. Mathematical equation: 7.6 (pH) + 0.9 (TF) + 2.1 (CF) + 2.2 (AF) - 12.2 (TDS Factor) = +0.6. Since an index of +0.6 rests safely above the standard scale threshold of +0.3, the spa water environment is actively Scale-forming.",
+    10: "Step 1: CC = 2.3 TC - 1.5 FC = 0.8 ppm. Step 2: Breakpoint Target = 0.8 CC x 10 = 8.0 ppm. Step 3: Desired Change = 8.0 Target - 1.5 current FC = 6.5 ppm change. Step 4: Volume Pool Factor = 6 (60,000 / 10,000). Step 5: Ounce dose = 6 x 6.5 x 2 oz = 78 total ounces. Step 6: Convert to weight in pounds = 78 ounces / 16 ounces per pound = 4.875 lbs."
+  };
+
+  function revealAnswer(qNum, correctLetter) {
+    const selectedOption = document.querySelector(`input[name="q${qNum}"]:checked`);
+    const feedbackBox = document.getElementById(`feedback-${qNum}`);
+    if (!selectedOption) return;
+    feedbackBox.style.display = "block";
+    if (selectedOption.value === correctLetter) {
+      feedbackBox.innerHTML = `<strong>✓ Correct!</strong> ${solutionExplanations[qNum]}`;
+      feedbackBox.className = "quiz-feedback correct-style";
+      scoreTrackingArray[qNum] = 1; 
+    } else {
+      feedbackBox.innerHTML = `<strong>✗ Incorrect.</strong> The correct choice is ${correctLetter}. ${solutionExplanations[qNum]}`;
+      feedbackBox.className = "quiz-feedback incorrect-style";
+      scoreTrackingArray[qNum] = 0;
+    }
+    updateScore();
+  }
+
+  function changeQuestion(direction) {
+    document.getElementById(`qblock-${currentQuestion}`).classList.remove('active');
+    currentQuestion += direction;
+    if (currentQuestion > totalQuestions) { showResults(); return; }
+    document.getElementById(`qblock-${currentQuestion}`).classList.add('active');
+    document.getElementById('question-counter-text').innerText = `Question ${currentQuestion} of ${totalQuestions}`;
+    document.getElementById('quiz-progress-bar').style.width = `${(currentQuestion / totalQuestions) * 100}%`;
+    document.getElementById('prev-btn').disabled = (currentQuestion === 1);
+    document.getElementById('next-btn').innerText = (currentQuestion === totalQuestions) ? "Finish & See Score" : "Next Question";
+  }
+
+  function updateScore() { runningScore = scoreTrackingArray.reduce((a, b) => a + b, 0); }
+
+  function showResults() {
+    document.getElementById('cpo-exam-form').style.display = "none";
+    document.getElementById('quiz-header-region').style.display = "none";
+    document.getElementById('quiz-nav-controls').style.display = "none";
+    const ExtBlock = document.getElementById('quiz-results-screen');
+    const scoreBadge = document.getElementById('score-text-placeholder');
+    const commentary = document.getElementById('score-commentary-text');
+    ExtBlock.style.display = "block";
+    scoreBadge.innerText = `${runningScore} / ${totalQuestions}`;
+    const percentage = (runningScore / totalQuestions) * 100;
+    if (percentage >= 80) { commentary.innerText = "Superb! You possess top-tier calculation abilities for pool turnover dynamics, volumetric conversions, and sizing factors."; }
+    else if (percentage >= 60) { commentary.innerText = "Good job! Review the division steps required to shift flow values from hourly back into minutes."; }
+    else { commentary.innerText = "Hydraulics formulas have a lot of moving parts. Break down the conversion constants and try again!"; }
+  }
+
+  function restartQuiz() {
+    currentQuestion = 1; runningScore = 0; scoreTrackingArray.fill(0);
+    document.getElementById('cpo-exam-form').reset();
+    const feedbacks = document.querySelectorAll('.quiz-feedback');
+    feedbacks.forEach(f => { f.style.display = "none"; f.className = "quiz-feedback"; });
+    document.getElementById('cpo-exam-form').style.display = "block";
+    document.getElementById('quiz-header-region').style.display = "block";
+    document.getElementById('quiz-nav-controls').style.display = "flex";
+    document.getElementById('quiz-results-screen').style.display = "none";
+    document.querySelectorAll('.quiz-question-block').forEach(b => b.classList.remove('active'));
+    document.getElementById('qblock-1').classList.add('active');
+    document.getElementById('question-counter-text').innerText = `Question 1 of ${totalQuestions}`;
+    document.getElementById('quiz-progress-bar').style.width = "10%";
+    document.getElementById('prev-btn').disabled = true;
+    document.getElementById('next-btn').innerText = "Next Question";
+  }
+</script>
+
+</body>
+</html>
