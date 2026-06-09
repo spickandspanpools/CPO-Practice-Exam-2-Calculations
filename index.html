@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CPO Practice Exam 2 - Essential Calculations</title>
+  <title>Advanced CPO Math Practice Exam</title>
   <style>
     body { background-color: transparent; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #333333; }
     .cpo-quiz-container { background-color: #f9fbfd; border: 1px solid #e1e8ed; border-radius: 8px; padding: 25px; max-width: 680px; margin: 10px auto; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
@@ -23,19 +23,22 @@
     .btn-secondary:hover { background-color: #cbd5e0; }
     .btn-primary { background-color: #0070f3; color: white; }
     .btn-primary:hover { background-color: #0056b3; }
+    .btn-success { background-color: #137333; color: white; }
+    .btn-success:hover { background-color: #0f5d29; }
     .quiz-feedback { margin-top: 15px; padding: 12px; border-radius: 6px; font-size: 14px; line-height: 1.5; display: none; }
     .correct-style { background-color: #e6f4ea; color: #137333; border-left: 4px solid #137333; }
     .incorrect-style { background-color: #fce8e6; color: #c5221f; border-left: 4px solid #c5221f; }
     #quiz-results-screen { display: none; text-align: center; padding: 20px 0; }
     #quiz-results-screen h4 { font-size: 22px; color: #0d2c54; margin-bottom: 10px; }
     .score-badge { font-size: 48px; font-weight: 800; color: #0070f3; margin: 15px 0; }
+    .results-action-container { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
   </style>
 </head>
 <body>
 
 <div class="cpo-quiz-container">
   <div class="quiz-header" id="quiz-header-region">
-    <h3>CPO Practice Exam 2 - Essential Calculations</h3>
+    <h3>CPO Advanced Calculations Test</h3>
     <p id="question-counter-text">Question 1 of 10</p>
     <div class="progress-bar-container">
       <div class="progress-bar-fill" id="quiz-progress-bar"></div>
@@ -135,11 +138,14 @@
   </form>
 
   <div id="quiz-results-screen">
-    <h4>Calculations Review Complete!</h4>
+    <h4>Exam 2 Complete!</h4>
     <p>Great job working through these specialized hydraulic and sizing questions.</p>
     <div class="score-badge" id="score-text-placeholder">0 / 10</div>
     <p id="score-commentary-text" style="color: #47525d; font-size: 15px; max-width: 500px; margin: 0 auto 20px; line-height: 1.5;"></p>
-    <button type="button" class="quiz-btn btn-primary" onclick="restartQuiz()">Retake Math Test</button>
+    <div class="results-action-container">
+      <button type="button" class="quiz-btn btn-secondary" onclick="restartQuiz()">Retake Exam 2</button>
+      <button type="button" class="quiz-btn btn-success" onclick="loadNextExam()">Next Exam</button>
+    </div>
   </div>
 
   <div class="quiz-nav-container" id="quiz-nav-controls">
@@ -227,6 +233,10 @@
     document.getElementById('quiz-progress-bar').style.width = "10%";
     document.getElementById('prev-btn').disabled = true;
     document.getElementById('next-btn').innerText = "Next Question";
+  }
+
+  function loadNextExam() {
+    window.open("https://www.spickandspanpools.com/cpo-practice-exam-3/", "_blank");
   }
 </script>
 
